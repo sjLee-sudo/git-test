@@ -1,0 +1,76 @@
+from django.db import models
+from django.db.models.query_utils import subclasses
+
+class Document(models.Model):
+    doc_id = models.CharField(primary_key=True, max_length=10)
+    pjt_id = models.CharField(max_length=10, default='')
+    pjt_no = models.CharField(max_length=256, default='')
+    stan_yr = models.CharField(max_length=4, default='')
+    yr_cnt = models.CharField(max_length=10, blank=True, null=True)
+    src_org_id = models.CharField(max_length=6)
+    pre_pjt_id = models.CharField(max_length=110, blank=True, null=True)
+    kor_pjt_nm = models.CharField(max_length=512)
+    eng_pjt_nm = models.CharField(max_length=512, blank=True, null=True)
+    prog_mstr_cd = models.CharField(max_length=10, blank=True, null=True)
+    prog_mstr_nm = models.CharField(max_length=128, blank=True, null=True)
+    pjt_mgnt_org_cd = models.CharField(max_length=7, blank=True, null=True)
+    spclty_org_nm = models.CharField(max_length=256)
+    pjt_prfrm_org_cd = models.CharField(max_length=7, blank=True, null=True)
+    pjt_prfrm_org_nm = models.CharField(max_length=256)
+    tot_rsch_start_dt = models.DateField(blank=True, null=True)
+    tot_rsch_end_dt = models.DateField(blank=True, null=True)
+    tsyr_rsch_start_dt = models.DateField(blank=True, null=True)
+    tsyr_rsch_end_dt = models.DateField(blank=True, null=True)
+    prog_nm = models.CharField(max_length=256)
+    rndco_tot_amt = models.BigIntegerField(blank=True, null=True)
+    dtpr_prog_nm = models.CharField(max_length=512, blank=True, null=True)
+    rsch_goal_abstract = models.TextField(blank=True, null=True)
+    exp_efct_abstract = models.TextField(blank=True, null=True)
+    rsch_abstract = models.TextField(blank=True, null=True)
+    kor_kywd = models.CharField(max_length=1024, blank=True, null=True)
+    eng_kywd = models.CharField(max_length=1024, blank=True, null=True)
+    doc_section = models.CharField(max_length=20, blank=True, null=True)
+    doc_class = models.CharField(max_length=20, blank=True, null=True)
+    doc_subclass = models.CharField(max_length=20, blank=True, null=True)
+    appl_area_cls_cd = models.CharField(max_length=20, blank=True, null=True)
+    appl_area_cls_nm = models.CharField(max_length=300, blank=True, null=True)
+    rsch_area_cls_cd = models.CharField(max_length=20, blank=True, null=True)
+    rsch_area_cls_nm = models.CharField(max_length=300, blank=True, null=True)
+    nat_strt_tech_cd = models.CharField(max_length=6, blank=True, null=True)
+    t6tech_cd = models.CharField(max_length=6, blank=True, null=True)
+    org_bdgt_prog_cd = models.CharField(max_length=80)
+    pjt_prgs_stat_slct = models.CharField(max_length=10, blank=True, null=True)
+    pjt_prgs_stat_slct_nm = models.CharField(max_length=10, blank=True, null=True)
+    prtcp_mp = models.TextField(blank=True, null=True)
+    ipr = models.TextField(blank=True, null=True)
+    paper = models.TextField(blank=True, null=True)
+    analysis_target_text = models.TextField(blank=True, null=True)
+    dtl_pjt_clas = models.CharField(max_length=50, blank=True, null=True)
+    hm_nm = models.CharField(max_length=50, blank=True, null=True)
+    prctuse_nm = models.CharField(max_length=50, blank=True, null=True)
+    regn_nm = models.CharField(max_length=50, blank=True, null=True)
+    rnd_phase = models.CharField(max_length=50, blank=True, null=True)
+    rsch_exec_suj = models.CharField(max_length=50, blank=True, null=True)
+    tech_lifecyc_nm = models.CharField(max_length=50, blank=True, null=True)
+    secret_pjt_yn = models.CharField(max_length=1, blank=True, null=True)
+    secret_pjt_canc_ym = models.CharField(max_length=6, blank=True, null=True)
+    
+    class Meta:
+        db_table = 'document'
+
+
+
+class Category(models.Model):
+    section_cd = models.CharField(max_length=100, blank=True, null=True)
+    section_nm = models.CharField(max_length=500, blank=True, null=True)
+    section_eng_nm = models.CharField(max_length=500, blank=True, null=True)
+    class_cd = models.CharField(max_length=100, blank=True, null=True)
+    class_nm = models.CharField(max_length=500, blank=True, null=True)
+    class_eng_nm = models.CharField(max_length=500, blank=True, null=True)
+    subclass_cd = models.CharField(max_length=100, blank=True, null=True)
+    subclass_nm = models.CharField(max_length=500, blank=True, null=True)
+    subclass_eng_nm = models.CharField(max_length=500, blank=True, null=True)
+    subclass_detail = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'category'

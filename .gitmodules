@@ -1,0 +1,3 @@
+[submodule "soynlp_branch"]
+	path = soynlp_branch
+	url = http://gitlab.euso.kr/data_analysis/soynlp_branch

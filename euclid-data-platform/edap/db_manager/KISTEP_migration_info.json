@@ -1,0 +1,277 @@
+{
+    "ACCESS_INFO": {
+        "DEFAULT_SOURCE":{
+            "NAME":"ORCLCDB",
+            "ENGINE":"oracle+cx_oracle",
+            "USER": "C##TEST_USER2",
+            "PASSWORD": "1234",
+            "HOST": "192.168.1.53",
+            "PORT": 1521
+        },
+        "COPY_SOURCE":{
+            "NAME":"docu_copy",
+            "ENGINE":"mysql+pymysql",
+            "USER": "airflow_user",
+            "PASSWORD": "airflow_pass",
+            "HOST": "192.168.1.53",
+            "PORT": 43306
+        },
+        "DEFAULT_TARGET":{
+            "NAME":"docu_test",
+            "ENGINE":"mysql+pymysql",
+            "USER": "airflow_user",
+            "PASSWORD": "airflow_pass",
+            "HOST": "192.168.1.53",
+            "PORT": 43306
+        }
+    },
+    "MIGRATION_INFO":{
+        "ORIGINAL_COPY":{
+            "DEFAULT_JOIN_KEY":"",
+            "MERGE_PROCESS": [
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_SBJT",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"연구개발 과제 테이블, 과제 ID 및 기본 정보 추출용 테이블"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT_KWD",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_SBJT_KWD",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 키워드"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT_TOT_ANNL",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_SBJT_TOT_ANNL",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 목표, 범위 내용, 기대효과 sbjt_id 로 합침"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_CFRSR_IPRS",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_CFRSR_IPRS",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 연구책임자 지식재산권 테이블, 국내외특허 출원 구분 포함"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT_ORGN_RSCH_EXE",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_SBJT_ORGN_RSCH_EXE",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 수행기관 연구 수행, 과제 현황 테이블"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_CFRSR_REXE",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_CFRSR_REXE",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 연구책임자 연구 수행, 과제 현황 테이블"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT_ORGN_IPRS",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_SBJT_ORGN_IPRS",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 수행기관 지식재산권 테이블, 국내외 출원 구분 포함"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_CFRSR_THES",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_CFRSR_THES",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 연구책임자 논문 현황 관리, 주관기관 책임자와 공동연구기관 책임자 해당"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO": "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_CFRSR_ETC",
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET",
+                    "TARGET_TABLE": "PS_CFRSR_ETC",
+                    "SOURCE_COLS" : [
+                        "*"
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK":"과제 연구책임자 기타 실적"
+                }
+            ]
+
+        },
+        "SUBJECT": {
+            "DEFAULT_JOIN_KEY": "SBJT_ID",
+            "MERGE_PROCESS": [
+                {
+                    "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT",
+                    "SELECT_CONDITION": "SBJT_PRG_SE = '종료'",
+                    "SOURCE_COLS" : [
+                        "SBJT_ID","HAN_SBJT_NM","ENG_SBJT_NM","BSNS_YY","SORGN_BSNS_CD","BSNS_ANCM_SN","BSNS_PTC_ANCM_SN",
+                        "SBJT_PROPL_STRC_SE","PRG_SORGN_BSNS_CD","OVRL_SBJT_ID","OVRS_NOPEN_YN","SBJT_DVLM_TP_SE"
+                    ],
+                    "PREPROCESS": [
+                        {"job":"drop_na", "target_cols": ["SBJT_ID"]},
+                        {"job":"drop_duplicates","target_cols":["SBJT_ID"]}
+                    ],
+                    "POSTPROCESS":[
+                        {"":""}
+                    ],
+                    "ADD_COMMENT": "Y",
+                    "REMARK": "연구개발 과제 테이블, 과제 ID 및 기본 정보 추출용 테이블"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT_KWD",
+                    "SOURCE_COLS" : ["SBJT_ID","KWD_SE","KWD_NM","KREN_SE","KWD_OR"],
+                    "JOIN_KEY": ["SBJT_ID"],
+                    "SELECT_CONDITION": "",
+                    "FILTER_BY_COL_VALS": "SBJT_ID",
+                    "PREPROCESS":[
+                        {"job":"fillna","target_cols":["ALL"]},
+                        {"job":"concat","target_cols":["ALL"],"params":{"on":"SBJT_ID","sep":",","지정안하면 default 값, 아는 사람만 사용 할 수 있게":""}}
+                    ],
+                    "REMARK":"과제 키워드"
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "PS_SBJT_TOT_ANNL",
+                    "SOURCE_COLS" : ["SBJT_ID","RSCH_GOLE_CN","RSCH_RANG_CN","EXPE_EFCT_CN"],
+                    "SELECT_CONDITION": "",
+                    "FILTER_BY_COL_VALS": "SBJT_ID",
+                    "JOIN_KEY":["SBJT_ID"],
+                    "PREPROCESS": [
+                        {"job":"drop_duplicates","target_cols":["SBJT_ID","RSCH_GOLE_CN"]},
+                        {"job":"drop_duplicates","target_cols":["SBJT_ID","RSCH_RANG_CN"]},
+                        {"job":"drop_duplicates","target_cols":["SBJT_ID","EXPE_EFCT_CN"]},
+                        {"job":"concat","target_cols":["RSCH_GOLE_CN"]},
+                        {"job":"concat","target_cols":["RSCH_RANG_CN"]},
+                        {"job":"concat","target_cols":["EXPE_EFCT_CN"]},
+                        {"job":"col_concat","target_cols":["RSCH_GOLE_CN","RSCH_RANG_CN","EXPE_EFCT_CN"],"params":{"col_name":"contents"}}
+                        ],
+                        "REMARK":"과제 종합 연차: 과제 목표, 범위 내용, 기대효과 sbjt_id 로 합침"
+                    },
+                    {
+                        "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                        "SOURCE_TABLE": "PS_SBJT_RSCH_ORGN",
+                        "SOURCE_COLS" : ["SBJT_ID","RSCH_ORGN_NM","RSCH_ORGN_ID","AGRT_ORGN_ID"],
+                        "SELECT_CONDITION": "RSCH_ORGN_ROLE_SE = '추후확인 필요'",
+                        "FILTER_BY_COL_VALS": "SBJT_ID",
+                        "JOIN_KEY":["SBJT_ID"],
+                        "PREPROCESS": [
+                            {"job":"cleaning_organ_nm","target_cols":["RSCH_ORGN_NM"]},
+                            {"job":"concat","target_cols":["RSCH_ORGN_NM"]},
+                            {"job":"concat","target_cols":["RSCH_ORGN_ID"]},
+                            {"job":"concat","target_cols":["AGRT_ORGN_ID"]}
+                        ],
+                        "ADD_COMMENT": "Y",
+                        "REMARK":"연구를 직접 수행하는 주관기관 + 공동연구기관 + 수요처기관의 기본정보 관리"
+                    },
+                    {
+                        "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                        "SOURCE_TABLE": "PS_SBJT_RSCH_MBR",
+                        "SOURCE_COLS" : ["SBJT_ID","RSCH_ORGN_ID","RSCR_MBR_ID","AGRT_ORGN_ID"],
+                        "SELECT_CONDITION": "RSCH_ORGN_ROLE_SE = '추후확인 필요'",
+                        "FILTER_BY_COL_VALS": "SBJT_ID",
+                        "JOIN_KEY":["SBJT_ID"],
+                        "PREPROCESS": [
+                            {"job":"cleaning_organ_nm","target_cols":["RSCH_ORGN_NM"]},
+                            {"job":"concat","target_cols":["RSCH_ORGN_NM"]},
+                            {"job":"concat","target_cols":["RSCH_ORGN_ID"]},
+                            {"job":"concat","target_cols":["AGRT_ORGN_ID"]},
+                            {"job":"df_to_dict","target_cols":["SELF"],"params":{"index":["SBJT_ID"],"col_name":"PS_SBJT_RSCH_MBR"}}
+                        ],
+                        "ADD_COMMENT": "Y",
+                        "REMARK":"과제를 수행하는 참여기관의 책임자와 참여연구원만 해당"
+                },
+                {
+                    "cleaning_organ_nm": ""
+                },
+                {
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET2",
+                    "TARGET_TABLE": "target_table_name",
+                    "COLS_NAME_MAPPING": {
+                        "KWD_SE" : "KWD"
+                    },
+                    "PREPROCESS_MODULE": {
+                        "kws": "lib_name_or_path.module1",
+                        "col1": "lib_name_or_path.module2",
+                        "col2": "lib_name_or_path.module3"
+                    }
+                }                
+            ]
+        },
+        "PATENT":{
+            "JOIN_KEY_COLS": ["pk_name1"],
+            "MERGE_PROCESS": [
+                {
+                    "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                    "TARGET_DB_ACCESS_INFO" : "",
+                    "SOURCE_TABLE": "base_table_name",
+                    "SELECT_CONDITION": "row_num > 10",
+                    "SOURCE_COLS" : ["col1","col2"],
+                    "PREPROCESS_MODULE": {
+                        "all": "lib_name_or_path.module1",
+                        "col1": "lib_name_or_path.module2",
+                        "col2": "lib_name_or_path.module3"
+                    }
+                },
+                {
+                    "SOURCE_DB_ACCESS_INFO" : "DEFAULT_SOURCE",
+                    "SOURCE_TABLE": "other_table_name",
+                    "SELECT_CONDITION": "row_num > 10",
+                    "SOURCE_COLS" : ["col1","col2"],
+                    "PREPROCESS_MODULE": {
+                        "all": "lib_name_or_path.module1",
+                        "col1": "lib_name_or_path.module2",
+                        "col2": "lib_name_or_path.module3"
+                    }
+                },
+                {
+                    "TARGET_DB_ACCESS_INFO" : "DEFAULT_TARGET2",
+                    "TARGET_TABLE": "target_table_name",
+                    "COLS_NAME_MAPPING": {
+                        "source_col1" : "target_col1"
+                    },
+                    "PREPROCESS_MODULE": {
+                        "all": "lib_name_or_path.module1",
+                        "col1": "lib_name_or_path.module2",
+                        "col2": "lib_name_or_path.module3"
+                    }
+                }                
+            ]            
+        }
+    }
+}

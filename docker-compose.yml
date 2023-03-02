@@ -1,0 +1,15 @@
+version: '3.2'
+
+services:
+  analysis-engine:
+    build:
+      context: euclid-data-platform/edap/
+    container_name: kistep-analysis-engine
+    volumes:
+      - ./euclid-data-platform/edap/:/app/
+      - ./soynlp_branch:/soynlp_branch
+    command: >
+        bash -c "cd /soynlp_branch && python setup.py install && cd /app && /django_start.sh" 
+    restart: "no"
+    ports:
+      - 8601:8000

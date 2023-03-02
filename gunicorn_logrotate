@@ -1,0 +1,15 @@
+/app/logs/access.log
+/app/logs/error.log
+{
+        daily
+        rotate 30
+        missingok
+        notifempty
+        dateext
+        dateyesterday
+        create 644 root root
+        sharedscripts
+        postrotate
+            killall -s SIGUSR1 gunicorn
+        endscript
+}

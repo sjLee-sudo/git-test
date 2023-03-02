@@ -1,0 +1,17 @@
+db.sqlite3
+__pycache__
+.idea
+.history
+.vscode.env
+**/media/userdict/**
+!**/media/example.json
+!**/media/initial_dict/**
+.vscode
+.ipynb_checkpoints
+*.ipynb
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+**/secret/**
+!**/secret/encrypt_database_info.json
+**/.static_root/

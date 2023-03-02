@@ -1,0 +1,100 @@
+import copy
+import json
+
+DOC_SEARCH_RESPONSE_FORMAT={
+"data": {
+        "doc_ids": ["문서id1",],
+        "total": "검색된 전체 문서수",
+        "doc_size": "제공 문서수",
+        "doc_data":[
+            {
+                "_index": "limenet_analysis_20211108155339",
+                "_type": "_doc",
+                "_id": "1420006484_1_1",
+                "_score": 30.165546,
+                "_routing": "UK",
+                "_source": {
+                    "doc_id": "1420006484_1_1",
+                    "sbjt_id": "1420006484",
+                    "prg_sn": 1,
+                    "ptc_prg_sn": 1,
+                    "doc_section": "",
+                    "han_sbjt_nm": "",
+                    "eng_sbjt_nm": "",
+                    "han_ovrl_rnd_nm": "",
+                    "eng_ovrl_rnd_nm": "",
+                    "bsns_yy": "2004",
+                    "rsch_gole_cn": "",
+                    "rsch_rang_cn": "",
+                    "expe_efct_cn": "",
+                    "prspt_frut_cn": "",
+                    "sorgn_id": "",
+                    "sorgn_nm": "중소기업청",
+                    "sbjt_tecl_cd": "",
+                    "sbjt_tecl_nm": "",
+                    "kwd": "성능,efficiency",
+                    "timestamp": "2021-11-08T15:54:11.627Z"}
+            }
+        ],
+        "analysis_data": {
+            "wordcloud": [
+                {
+                    "norm_doc_freq_sum": 1,
+                    "doc_ids": ["문서id1"],
+                    "term": "단어1",
+                    "doc_freq_sum": 1,
+                },
+            ]
+        }
+    }
+}
+REFINE_DOC_RESPONSE_FORMAT = copy.deepcopy(DOC_SEARCH_RESPONSE_FORMAT)
+REFINE_DOC_RESPONSE_FORMAT["data"].update(
+   {
+       "edgelist":[
+            {
+                "단어1":["문서번호1",]
+            }
+        ]
+   }
+)
+REFINE_DOC_RESPONSE_FORMAT["data"]["doc_data"][0].update(
+        {
+            "_infl":"영향력",
+            "_btwn":"매개력",
+            "_conn":"연결성",
+            "_date":"최신성",
+        }
+    )
+
+REFINE_DOC_RESPONSE_FORMAT["data"]["analysis_data"].update(
+    {
+        "sna": {
+            'nodes': [
+                {
+                    'id': 0,
+                    't': '0.0',
+                    '_neighbor' : ['100023', '100242'],
+                    'pyear' : ['2020','2019'],
+                    'sE': 0.2658595716
+                },
+                {
+                    'id': 1354,
+                    't': '희석',
+                    '_neighbor' : ['100023', '100242'],
+                    'pyear' : ['2020','2019'],
+                    'sE': 0.2658595716
+                }
+            ],
+            'links': [
+                {'source': '0.0', 'target': 'Si', 'v': 3},
+                {'source': '0.0', 'target': '규소', 'v': 3},
+                {'source': '0.0', 'target': '난연제', 'v': 1}
+            ]
+        }
+    }
+)
+
+if __name__ =="__main__":
+    print("\n"+json.dumps(DOC_SEARCH_RESPONSE_FORMAT,ensure_ascii=False)+"\n")
+    print("\n"+json.dumps(REFINE_DOC_RESPONSE_FORMAT,ensure_ascii=False)+"\n")

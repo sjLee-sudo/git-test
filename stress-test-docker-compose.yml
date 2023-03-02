@@ -1,0 +1,54 @@
+version: '3.2'
+
+services:
+  analysis-engine-stress-test:
+    build:
+      context: euclid-data-platform/edap/
+    container_name: analysis-engine-prod-stress-test
+    volumes:
+      - ./euclid-data-platform/edap/:/app/
+      - ./soynlp_branch:/soynlp_branch
+      - static_volume:/.static_root/
+      - media_volumne:/app/media/
+    command: >
+        bash -c "cd /soynlp_branch && python setup.py install && cd /app && /django_start_prod.sh" 
+    restart: "no"
+    ports:
+      - 8011:8000
+    networks:
+      - default
+
+  load-balancer-stress-test:
+    image: nginx
+    container_name: analysis-load-balancer-stress-test
+    restart: always
+    volumes:
+      - type: volume
+        source: static_volume
+        target: /static
+      - type: volume
+        source: media_volumne
+        target: /media
+      - type: bind
+        source: ./nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+      - type: bind
+        source: ./nginx/conf.d/default.conf
+        target: /etc/nginx/conf.d/default.conf
+        read_only: true
+    ports:
+      - 8012:80
+    depends_on:
+      - analysis-engine-stress-test
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: kistep_analysis_network_test
+
+volumes:
+  static_volume:
+  media_volumne:

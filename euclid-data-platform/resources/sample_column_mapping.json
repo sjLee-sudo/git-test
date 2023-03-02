@@ -1,0 +1,17 @@
+{
+    "docu_patent": {
+        "doc_id":"VDKVGWKEY",
+        "country_code":"COUNTRY_CODE",
+        "title":"INVENTION_TITLE_KO",
+        "content":"ASTRT_CONT",
+        "publication_date":"APP_DT",
+        "doc_section":"",
+        "doc_class":"",
+        "doc_subclass":"IPC_CD",
+        "publisher_code":"APAGT_CD",
+        "publisher_name":"APAGT_NM",
+        "remark":"",
+        "updated_at":"",
+        "created_at":""
+    }
+}
